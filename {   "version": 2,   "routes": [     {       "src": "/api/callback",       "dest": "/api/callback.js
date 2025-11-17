@@ -1,0 +1,3 @@
+ALiexpress_APP_KEY=OMiS6a8bKcWrUsu5Bsr34NooT9yYwB3q
+ALiexpress_APP_SECRET=503368
+CALLBACK_URL=https://aliexpress-redirect-v2.vercel.app/api/callback
