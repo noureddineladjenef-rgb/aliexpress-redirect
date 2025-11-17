@@ -1,11 +1,13 @@
-export default function handler(req, res) {
-  const { product } = req.query;
+export default async function handler(req, res) {
+  const { code, state } = req.query;
 
-  if (!product) {
-    return res.status(400).json({ error: "Missing product ID" });
+  if (!code || !state) {
+    return res.status(400).json({ error: 'Missing OAuth data' });
   }
 
-  const finalUrl = `https://aliexpress.com/item/${product}.html`;
-
-  return res.redirect(finalUrl);
+  return res.status(200).json({
+    message: "Callback received successfully!",
+    code,
+    state
+  });
 }
