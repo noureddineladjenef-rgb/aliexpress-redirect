@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/api/callback", "dest": "/api/callback.js" },
+    { "src": "/api/redirect", "dest": "/api/redirect.js" }
+  ]
+}
