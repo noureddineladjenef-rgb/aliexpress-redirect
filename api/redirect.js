@@ -1,25 +1,21 @@
-import axios from "axios";
-
 export default async function handler(req, res) {
-  const { url } = req.query;
-
-  if (!url) {
-    return res.status(400).json({ error: "Missing url" });
-  }
-
   try {
+    const { url } = req.query;
+
+    if (!url) {
+      return res.status(400).json({ error: "Missing url" });
+    }
+
+    const clientId = 503368;
+    const trackingId = "default";
+
     const encodedUrl = encodeURIComponent(url);
 
-    // رابط API الرسمي للتحويل في AliExpress
-    const apiUrl = `https://api.aliexpress.com/sync?app_key=503368&tracking_id=default&target_url=${encodedUrl}&sign_method=hmac&timestamp=${Date.now()}`;
+    const finalUrl = `https://api.aliexpress.com/sync?app_key=${clientId}&tracking_id=${trackingId}&target_url=${encodedUrl}`;
 
-    // نعيد توجيه المستخدم مباشرة إلى رابط الأفلييت
-    return res.redirect(apiUrl);
+    return res.redirect(finalUrl);
 
-  } catch (err) {
-    return res.status(500).json({
-      error: "Failed to generate affiliate link",
-      details: err.message,
-    });
+  } catch (e) {
+    return res.status(500).json({ error: "Server error", details: e.message });
   }
 }
