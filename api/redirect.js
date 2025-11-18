@@ -1,11 +1,11 @@
 export default function handler(req, res) {
-  const { url } = req.query;
+  const redirectUri = process.env.REDIRECT_URI;
 
-  if (!url) {
-    return res.status(400).json({ error: "Missing URL" });
+  if (!redirectUri) {
+    return res.status(500).json({ error: "Missing REDIRECT_URI in environment variables" });
   }
 
-  const redirectUrl = `https://portals.aliexpress.com/linkgen__v3?aff_fcid=${process.env.ALI_AFFILIATE_ID}&aff_fsk=${process.env.ALI_APP_KEY}&dp=c2&url=${encodeURIComponent(url)}`;
+  const authUrl = `https://auth.aliexpress.com/oauth/authorize?response_type=code&client_id=${process.env.APP_KEY}&redirect_uri=${encodeURIComponent(redirectUri)}&state=12345`;
 
-  return res.redirect(redirectUrl);
+  res.redirect(authUrl);
 }
