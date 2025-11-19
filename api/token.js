@@ -1,36 +1,45 @@
+// api/token.js
 let cachedToken = null;
 let cachedExpire = 0;
 
 export default async function handler(req, res) {
   try {
     const now = Date.now();
-
     if (cachedToken && now < cachedExpire) {
-      return res.json({ access_token: cachedToken });
+      return res.status(200).json({ access_token: cachedToken, cached: true });
     }
 
-    const resp = await fetch("https://api.aliexpress.com/token", {
+    const APP_KEY = process.env.ALI_APP_KEY || "503368";
+    const APP_SECRET = process.env.ALI_APP_SECRET || "YOUR_APP_SECRET";
+
+    const url = "https://api.aliexpress.com/oauth/token";
+    const params = new URLSearchParams();
+    params.append("grant_type", "client_credentials");
+    params.append("app_key", APP_KEY);
+    params.append("app_secret", APP_SECRET);
+
+    const resp = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        grant_type: "client_credentials",
-        app_key: process.env.ALI_APP_KEY,
-        app_secret: process.env.ALI_APP_SECRET
-      })
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString()
     });
 
     const data = await resp.json();
+    console.log("client_credentials token response:", data);
 
-    if (!data.access_token) {
-      return res.status(500).json({ error: "Failed to get token", details: data });
+    const token = data.access_token || (data.data && data.data.access_token);
+    const expiresIn = data.expires_in || (data.data && data.data.expires_in) || 3600;
+
+    if (!token) {
+      return res.status(500).json({ error: "No access_token returned", raw: data });
     }
 
-    cachedToken = data.access_token;
-    cachedExpire = now + (data.expires_in * 1000);
+    cachedToken = token;
+    cachedExpire = Date.now() + (expiresIn - 10) * 1000; // اطرح 10 ثواني للسلامة
 
-    return res.json({ access_token: cachedToken });
-
-  } catch (e) {
-    return res.status(500).json({ error: e.message });
+    return res.status(200).json({ access_token: cachedToken, expires_in: expiresIn });
+  } catch (err) {
+    console.error("token error:", err);
+    return res.status(500).json({ error: err.message });
   }
 }
