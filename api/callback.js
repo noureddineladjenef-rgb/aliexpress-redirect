@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     }
 
     const APP_KEY = process.env.ALI_APP_KEY || "503368";
-    const APP_SECRET = process.env.ALI_APP_SECRET || "YOUR_APP_SECRET";
+    const APP_SECRET = process.env.ALI_APP_SECRET || "elN0hkFZhXbUKORbj0L35409sRnPZ1eq";
     const REDIRECT_URI = process.env.REDIRECT_URI || "https://yourproject.vercel.app/api/callback";
 
     // تبادل الكود مقابل Access Token
