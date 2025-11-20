@@ -1,14 +1,4 @@
-// api/env.js
-
-export default {
-  ALIEXPRESS_APP_KEY: "503368",
-
-  ALIEXPRESS_APP_SECRET: "elN0hkFZhXbUKORbj0L35409sRnPZ1eq",
-  ALIEXPRESS_AUTH_CODE=3_503368_MklxZTNmhy8GNmHN6PAcluqK1818
-
-  ALIEXPRESS_REDIRECT_URI: "https://aliexpress-redirect.vercel.app/api/callback",
-
-  TELEGRAM_BOT_TOKEN: "8548245901:AAFbF4m_op83bfP8RoFdN0nyaiboReFge8Y",
-
-  TELEGRAM_CHAT_ID: "5267862493"
+export const env = {
+  ALI_APP_KEY: "503368",
+  ALI_APP_SECRET: "elN0hkFZhXbUKORbj0L35409sRnPZ1eq",
 };
