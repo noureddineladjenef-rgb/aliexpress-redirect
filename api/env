@@ -1,4 +1,4 @@
-ALIEXPRESS_AUTH_CODE=3_503368_qCjJiLPUaQOeP3jofgtS1LnO1666
-CLIENT_ID=503368
-CLIENT_SECRET=OMiS6a8bKcWrUsu5Bsr34NooT9yYwB3q
-REDIRECT_URI=https://direct.vercel.app/api/callback
+export const env = {
+  ALI_APP_KEY: process.env.ALI_APP_KEY,
+  ALI_APP_SECRET: process.env.ALI_APP_SECRET,
+};
