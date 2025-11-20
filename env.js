@@ -4,8 +4,7 @@ export default {
   ALIEXPRESS_APP_KEY: "503368",
 
   ALIEXPRESS_APP_SECRET: "elN0hkFZhXbUKORbj0L35409sRnPZ1eq",
-
-  ALIEXPRESS_AUTH_CODE: "3_503366_HVLPOMKPukktQv06ctvsqqIk1687",
+  ALIEXPRESS_AUTH_CODE=3_503368_MklxZTNmhy8GNmHN6PAcluqK1818
 
   ALIEXPRESS_REDIRECT_URI: "https://aliexpress-redirect.vercel.app/api/callback",
 
