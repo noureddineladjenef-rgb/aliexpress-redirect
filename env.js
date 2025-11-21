@@ -1,5 +1,3 @@
-ALI_APP_KEY=your_app_key_here
-ALI_APP_SECRET=your_app_secret_here
-ALI_REDIRECT_URI=https://aliexpress-redirect.onrender.com/auth/callback
-NODE_ENV=production
-PORT=10000
+ALIEXPRESS_APP_KEY=503368
+ALIEXPRESS_APP_SECRET=elN0hkFZhXbUKORbj0L35409sRnPZ1eq
+ALIEXPRESS_REDIRECT_URI=https://aliexpress-redirect.onrender.com/api/callback
