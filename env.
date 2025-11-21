@@ -1,3 +1,0 @@
-ALIEXPRESS_APP_KEY=503368
-ALIEXPRESS_APP_SECRET=elN0hkFZhXbUKORbj0L35409sRnPZ1eq
-ALIEXPRESS_REDIRECT_URI=https://aliexpress-redirect.onrender.com/api/callback
