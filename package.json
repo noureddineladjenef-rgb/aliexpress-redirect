@@ -1,5 +1,5 @@
 {
-  "name": "aliexpress-oauth",
+  "name": "aliexpress-oauth-fixed",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -10,8 +10,5 @@
     "express": "^4.18.2",
     "axios": "^1.6.0",
     "dotenv": "^16.3.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
   }
 }
