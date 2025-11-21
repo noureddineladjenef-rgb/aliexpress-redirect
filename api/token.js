@@ -1,38 +1,37 @@
-// api/token.js
+import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 export default async function handler(req, res) {
   try {
-    const { code } = req.query;
+    // نجلب الكود مباشرة من .env
+    const code = process.env.AUTH_CODE;
 
     if (!code) {
-      return res.status(400).json({ error: "Missing code" });
+      return res.json({ error: "AUTH_CODE not found in environment!" });
     }
 
-    const APP_KEY = process.env.ALIEXPRESS_APP_KEY;
-    const APP_SECRET = process.env.ALIEXPRESS_APP_SECRET;
-    const REDIRECT_URI = process.env.ALIEXPRESS_REDIRECT_URI;
+    const url = "https://api.aliexpress.com/auth/token";
 
-    const url = "https://api.aliexpress.com/oauth/token";
-
-    const params = new URLSearchParams({
+    const params = {
       grant_type: "authorization_code",
-      app_key: APP_KEY,
-      app_secret: APP_SECRET,
+      client_id: process.env.ALIEXPRESS_APP_KEY,
+      client_secret: process.env.ALIEXPRESS_APP_SECRET,
       code,
-      redirect_uri: REDIRECT_URI
+      redirect_uri: process.env.ALIEXPRESS_REDIRECT_URI
+    };
+
+    const response = await axios.get(url, { params });
+
+    res.json({
+      success: true,
+      data: response.data
     });
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: params
-    });
-
-    const data = await response.json();
-
-    return res.status(200).json(data);
 
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    res.json({
+      error: "Token API failed",
+      details: error?.response?.data || error.message
+    });
   }
 }
